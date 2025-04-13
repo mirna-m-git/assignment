@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`LoginForm > can mount login form component 1`] = `
+"<form autocomplete="off">
+  <provet-input></provet-input>
+  <provet-input></provet-input>
+  <provet-button class="n-margin-bs-m n-width-100">Log In</provet-button>
+</form>"
+`;

@@ -14,7 +14,8 @@ const userForm = ref({
   subscribeToUpdates: false,
 });
 const onSignup = () => {
-  signup(userForm.value);
+  const { confirmPassword, ...payload } = userForm.value;
+  signup(payload);
 }
 </script>
 <template>
