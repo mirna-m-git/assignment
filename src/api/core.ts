@@ -6,7 +6,7 @@ type Params = Record<
 interface APIResponse<T> {
   status: number;
   ok: boolean;
-  data: T | null;
+  data: T | { message: string } | null;
   rawData: any;
 }
 
@@ -79,6 +79,7 @@ class CoreAPI {
 
   async $request<T>(
     url: string,
+    auth = true,
     options: RequestInit = {
       method: "GET",
       body: null,
@@ -95,10 +96,10 @@ class CoreAPI {
       credentials: "include" as RequestCredentials,
     };
     const response = await fetch(url, requestOptions);
-    if (response.status === 401) {
+    if (response.status === 401 && auth) {
       const { success } = await this._tryRefreshToken();
       if (success) {
-        return this.$request(url, options);
+        return this.$request(url, auth, options);
       }
     }
     let data = await this._decodeData(response);
@@ -110,8 +111,13 @@ class CoreAPI {
     };
   }
 
-  async $get(path: string, params?: Params, options: RequestInit = {}) {
-    const response = await this.$request(this.$url(path, params), {
+  async $get(
+    path: string,
+    params?: Params,
+    auth = true,
+    options: RequestInit = {}
+  ) {
+    const response = await this.$request(this.$url(path, params), auth, {
       method: "GET",
       ...options,
     });
@@ -119,32 +125,47 @@ class CoreAPI {
     return response;
   }
 
-  $post<T>(path: string, data?: Partial<T>, options: RequestInit = {}) {
-    return this.$request(this.$url(path), {
+  $post<T>(
+    path: string,
+    data?: Partial<T>,
+    auth = true,
+    options: RequestInit = {}
+  ) {
+    return this.$request(this.$url(path), auth, {
       method: "POST",
       body: JSON.stringify(data),
       ...options,
     });
   }
 
-  $put<T>(path: string, data?: Partial<T>, options: RequestInit = {}) {
-    return this.$request(this.$url(path), {
+  $put<T>(
+    path: string,
+    data?: Partial<T>,
+    auth = true,
+    options: RequestInit = {}
+  ) {
+    return this.$request(this.$url(path), auth, {
       method: "PUT",
       body: JSON.stringify(data),
       ...options,
     });
   }
 
-  $patch<T>(path: string, data?: Partial<T>, options: RequestInit = {}) {
-    return this.$request(this.$url(path), {
+  $patch<T>(
+    path: string,
+    data?: Partial<T>,
+    auth = true,
+    options: RequestInit = {}
+  ) {
+    return this.$request(this.$url(path), auth, {
       method: "PATCH",
       body: JSON.stringify(data),
       ...options,
     });
   }
 
-  $delete(path: string, options: RequestInit = {}) {
-    return this.$request(this.$url(path), {
+  $delete(path: string, auth = true, options: RequestInit = {}) {
+    return this.$request(this.$url(path), auth, {
       method: "DELETE",
       ...options,
     });

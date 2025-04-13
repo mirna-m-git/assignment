@@ -19,8 +19,8 @@ defineProps<Props>();
 const emit = defineEmits(["update:modelValue"]);
 const onInput = (event: Event) => {
   const target = event.currentTarget as HTMLInputElement;
-  emit('update:modelValue', target.value);
-}
+  emit("update:modelValue", target.value);
+};
 </script>
 <template>
   <provet-input
@@ -28,5 +28,7 @@ const onInput = (event: Event) => {
     :type="type"
     :value="modelValue"
     @input="onInput"
-  ></provet-input>
+  >
+    <slot name="button"></slot>
+  </provet-input>
 </template>

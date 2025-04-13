@@ -10,6 +10,12 @@ interface UserData {
 }
 
 class AuthAPI extends CoreAPI {
+  _extractError(data: { message: string }) {
+    if (data.message) {
+      return data.message;
+    }
+    return "Unknown error";
+  }
   async signup(userData: UserData) {
     const payload = {
       email: userData.email,
@@ -18,11 +24,14 @@ class AuthAPI extends CoreAPI {
       password: userData.password,
       subscribe_to_updates: userData.subscribeToUpdates,
     };
-    const { data, ok } = await this.$post("/account/signup", payload);
-
+    const { data, ok } = await this.$post("/account/signup", payload, false);
+    if (ok) {
+      return { success: true, data: data as User };
+    }
     return {
-      success: !!ok,
-      data: ok ? (data as User) : null,
+      success: false,
+      error: this._extractError(data as { message: string }),
+      data: null,
     };
   }
 
@@ -31,27 +40,38 @@ class AuthAPI extends CoreAPI {
       email: loginForm.email,
       password: loginForm.password,
     };
-    const { data, ok } = await this.$post("/account/login", payload);
+    const { data, ok } = await this.$post("/account/login", payload, false);
+    if (ok) {
+      return { success: true, data: data as User };
+    }
     return {
-      success: !!ok,
-      data: ok ? (data as User) : null,
+      success: false,
+      error: this._extractError(data as { message: string }),
+      data: null,
     };
   }
 
   async logout() {
-    const { data, ok } = await this.$post("/account/logout");
+    const { ok, data } = await this.$post("/account/logout");
+    if (ok) {
+      return { success: true };
+    }
     return {
-      success: !!ok,
+      success: false,
+      error: this._extractError(data as { message: string }),
     };
   }
 
   async getCurrentUser() {
     const { data, ok } = await this.$get("/me");
+    if (ok) {
+      return { success: true, data: data as User };
+    }
     return {
-      success: !!ok,
-      data: ok ? (data as User) : null,
+      success: false,
+      error: this._extractError(data as { message: string }),
+      data: null,
     };
   }
 }
-
 export default new AuthAPI();

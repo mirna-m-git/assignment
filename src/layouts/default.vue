@@ -5,5 +5,6 @@
     <provet-card>
       <slot></slot>
     </provet-card>
+    <provet-toast-group />
   </provet-layout>
 </template>
