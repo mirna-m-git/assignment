@@ -76,7 +76,7 @@ app.post("/account/signup", (req, res) => {
 
   const { accessToken, refreshToken } = generateTokens(newUser);
   sendAuthCookies(res, accessToken, refreshToken);
-  res.json({ user: newUser });
+  res.json(newUser);
 });
 
 // Login
@@ -89,7 +89,7 @@ app.post("/account/login", (req, res) => {
 
   const { accessToken, refreshToken } = generateTokens(user);
   sendAuthCookies(res, accessToken, refreshToken);
-  res.json({ user });
+  res.json(user);
 });
 
 // Refresh
@@ -138,7 +138,7 @@ app.get("/me", authenticateToken, (req, res) => {
 
   // Exclude password from the response
   const { password, ...userWithoutPassword } = user;
-  res.json({ user: userWithoutPassword });
+  res.json(userWithoutPassword);
 });
 
 app.listen(PORT, () => {

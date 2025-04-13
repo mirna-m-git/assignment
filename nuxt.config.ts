@@ -4,9 +4,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
   srcDir: "src/",
+
   runtimeConfig: {
     public: {
       apiBase: process.env.API_BASE_URL || "http://localhost:4100",
     },
   },
+
+  modules: ["@pinia/nuxt"],
 });

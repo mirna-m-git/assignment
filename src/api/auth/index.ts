@@ -1,3 +1,4 @@
+import type { User, UserCredentials } from "~/@types/user";
 import CoreAPI from "../core";
 
 interface UserData {
@@ -6,10 +7,6 @@ interface UserData {
   lastName?: string;
   password: string;
   subscribeToUpdates: boolean;
-}
-interface LoginData {
-  email: string;
-  password: string;
 }
 
 class AuthAPI extends CoreAPI {
@@ -25,11 +22,11 @@ class AuthAPI extends CoreAPI {
 
     return {
       success: !!ok,
-      user: ok ? data : null,
+      data: ok ? data as User : null,
     };
   }
 
-  async login(loginForm: LoginData) {
+  async login(loginForm: UserCredentials) {
     const payload = {
       email: loginForm.email,
       password: loginForm.password,
@@ -37,7 +34,7 @@ class AuthAPI extends CoreAPI {
     const { data, ok } = await this.$post("/account/login", payload);
     return {
       success: !!ok,
-      user: ok ? data : null,
+      data: ok ? data as User : null,
     };
   }
 }

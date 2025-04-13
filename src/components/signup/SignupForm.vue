@@ -2,9 +2,9 @@
 import Button from "../globals/Button.vue";
 import Checkbox from "../globals/Checkbox.vue";
 import Input from "../globals/Input.vue";
-import useApi from "~/composables/api";
 
-const api = useApi();
+const { signup } = useUserStore();
+
 const userForm = ref({
   firstName: "",
   lastName: "",
@@ -13,9 +13,6 @@ const userForm = ref({
   confirmPassword: "",
   subscribeToUpdates: false,
 });
-const signup = async () => {
-  const { success } = await api.auth.signup(userForm.value);
-};
 </script>
 <template>
   <form @submit.prevent autocomplete="off">
