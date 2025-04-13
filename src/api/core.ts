@@ -110,7 +110,7 @@ class CoreAPI {
     };
   }
 
-  async $get(path: string, params: Params, options: RequestInit = {}) {
+  async $get(path: string, params?: Params, options: RequestInit = {}) {
     const response = await this.$request(this.$url(path, params), {
       method: "GET",
       ...options,
@@ -119,7 +119,7 @@ class CoreAPI {
     return response;
   }
 
-  $post<T>(path: string, data: Partial<T>, options: RequestInit = {}) {
+  $post<T>(path: string, data?: Partial<T>, options: RequestInit = {}) {
     return this.$request(this.$url(path), {
       method: "POST",
       body: JSON.stringify(data),
@@ -127,7 +127,7 @@ class CoreAPI {
     });
   }
 
-  $put<T>(path: string, data: Partial<T>, options: RequestInit = {}) {
+  $put<T>(path: string, data?: Partial<T>, options: RequestInit = {}) {
     return this.$request(this.$url(path), {
       method: "PUT",
       body: JSON.stringify(data),
@@ -135,7 +135,7 @@ class CoreAPI {
     });
   }
 
-  $patch<T>(path: string, data: Partial<T>, options: RequestInit = {}) {
+  $patch<T>(path: string, data?: Partial<T>, options: RequestInit = {}) {
     return this.$request(this.$url(path), {
       method: "PATCH",
       body: JSON.stringify(data),

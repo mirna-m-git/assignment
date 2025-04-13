@@ -3,6 +3,15 @@ import useApi from "~/composables/api";
 
 export const useUserStore = defineStore("user", () => {
   const user = ref<User | null>(null);
+  const storedUser = localStorage.getItem("user")
+  if (storedUser !== null) {
+    try {
+      user.value = JSON.parse(storedUser) as User
+    } catch (e) {
+      user.value = null;
+      console.error("Failed to parse user from localStorage", e)
+    }
+  }
   const api = useApi();
 
   const isAuthenticated = computed(() => user.value && user.value.id > 0);
@@ -11,6 +20,7 @@ export const useUserStore = defineStore("user", () => {
     user.value = data;
     if (success) {
       navigateTo("/");
+      localStorage.setItem("user", JSON.stringify(data));
     }
   };
   const login = async (userCredentials: UserCredentials) => {
@@ -18,7 +28,22 @@ export const useUserStore = defineStore("user", () => {
     user.value = data;
     if (success) {
       navigateTo("/");
+      localStorage.setItem("user", JSON.stringify(data));
     }
   };
-  return { user, isAuthenticated, signup, login };
+  const get = async () => {
+    const { success, data } = await api.auth.getCurrentUser();
+    user.value = data;
+    if (success) {
+      navigateTo("/");
+      localStorage.setItem("user", JSON.stringify(data));
+    }
+  }
+  const logout = async () => {
+    const { success } = await api.auth.logout();
+    if (success) {
+      localStorage.removeItem("user");
+    }
+  };
+  return { user, isAuthenticated, signup, login, get };
 });

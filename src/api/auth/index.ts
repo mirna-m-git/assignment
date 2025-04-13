@@ -22,7 +22,7 @@ class AuthAPI extends CoreAPI {
 
     return {
       success: !!ok,
-      data: ok ? data as User : null,
+      data: ok ? (data as User) : null,
     };
   }
 
@@ -34,7 +34,22 @@ class AuthAPI extends CoreAPI {
     const { data, ok } = await this.$post("/account/login", payload);
     return {
       success: !!ok,
-      data: ok ? data as User : null,
+      data: ok ? (data as User) : null,
+    };
+  }
+
+  async logout() {
+    const { data, ok } = await this.$post("/account/logout");
+    return {
+      success: !!ok,
+    };
+  }
+
+  async getCurrentUser() {
+    const { data, ok } = await this.$get("/me");
+    return {
+      success: !!ok,
+      data: ok ? (data as User) : null,
     };
   }
 }

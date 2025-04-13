@@ -13,6 +13,9 @@ const userForm = ref({
   confirmPassword: "",
   subscribeToUpdates: false,
 });
+const onSignup = () => {
+  signup(userForm.value);
+}
 </script>
 <template>
   <form @submit.prevent autocomplete="off">
@@ -26,7 +29,7 @@ const userForm = ref({
       :checked="userForm.subscribeToUpdates"
       @change="userForm.subscribeToUpdates = !userForm.subscribeToUpdates"
     />
-    <Button class="n-margin-bs-m n-width-100" variant="primary" @click="signup"
+    <Button class="n-margin-bs-m n-width-100" variant="primary" @click="onSignup"
       >Sign Up</Button
     >
   </form>
