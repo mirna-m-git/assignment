@@ -944,6 +944,13 @@
   dependencies:
     "@types/clean-css" "^4.2.11"
 
+"@provetcloud/web-components-vue-types@^1.3.3":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@provetcloud/web-components-vue-types/-/web-components-vue-types-1.3.3.tgz#74bab59f74bec57c95e0ced68ba078492a4366bd"
+  integrity sha512-4fE1LTy0G9d4QO+F7O8RKEnnaJ9AyU3O/lXl2ar6uHvRhHzBLjcLowXw0viqsiBU6qbOgEtjHIvTjQc8zVZUSw==
+  dependencies:
+    "@provetcloud/web-components" "^1.3.3"
+
 "@provetcloud/web-components@^1.3.3":
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/@provetcloud/web-components/-/web-components-1.3.3.tgz#3f69e2ae959bbd9fd2eaba72f87c5fecd5423eb6"
