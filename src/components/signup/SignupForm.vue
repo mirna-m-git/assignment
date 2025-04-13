@@ -14,6 +14,15 @@ const userForm = ref({
   confirmPassword: "",
   subscribeToUpdates: false,
 });
+
+const { errors, isValid } = useFormValidation(userForm, {
+  email: [validateEmail],
+  password: [validatePassword],
+  confirmPassword: [
+    (val) => validateConfirmPassword(val, userForm.value.password),
+  ],
+});
+
 const passwordVisible = ref(false);
 const onSignup = async () => {
   toast.remove();
@@ -30,8 +39,8 @@ const onSignup = async () => {
   <form @submit.prevent>
     <Input label="First Name" v-model="userForm.firstName" />
     <Input label="Last Name" v-model="userForm.lastName" />
-    <Input label="Email" v-model="userForm.email" />
-    <Input label="Password" :type="passwordVisible ? 'text' : 'password'" v-model="userForm.password">
+    <Input label="Email" v-model="userForm.email" :error="errors.email" />
+    <Input label="Password" :type="passwordVisible ? 'text' : 'password'" v-model="userForm.password" :error="errors.password">
       <template #button>
         <provet-button
           slot="end"
@@ -50,6 +59,7 @@ const onSignup = async () => {
       label="Confirm Password"
       type="password"
       v-model="userForm.confirmPassword"
+      :error="errors.confirmPassword"
     />
     <Checkbox
       label="I want to receive updates and announcements"
@@ -58,8 +68,16 @@ const onSignup = async () => {
     />
     <Button
       class="n-margin-bs-m n-width-100"
+      v-if="isValid"
       variant="primary"
       @click="onSignup"
+      >Sign Up</Button
+    >
+    <Button
+      class="n-margin-bs-m n-width-100"
+      variant="primary"
+      disabled
+      v-else
       >Sign Up</Button
     >
   </form>
