@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import "@provetcloud/web-components/lib/Checkbox";
 
 interface Props {
   checked?: boolean;

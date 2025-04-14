@@ -8,7 +8,7 @@ exports[`LoginForm > can mount login form component 1`] = `
       <provet-button slot="end">
         <provet-icon></provet-icon>
       </provet-button>
-    </provet-input>
+    </provet-input><a href="/" class="n-typescale-xs n-align-end">Forgot password?</a>
     <provet-button class="n-margin-bs-m n-width-100">Log In</provet-button>
   </provet-stack>
 </form>"

@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import "@provetcloud/css";
 import SignupForm from "~/components/signup/SignupForm.vue";
 definePageMeta({ middleware: ["user-authenticated-redirect"] });
 </script>

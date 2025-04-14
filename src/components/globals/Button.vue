@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import "@provetcloud/web-components/lib/Button";
 type ButtonVariant = "primary" | "default" | "danger" | "dashed" | "plain";
 
 interface Props {

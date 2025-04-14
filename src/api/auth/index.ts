@@ -72,4 +72,5 @@ class AuthAPI extends CoreAPI {
     };
   }
 }
-export default new AuthAPI();
+const auth = new AuthAPI();
+export default auth;

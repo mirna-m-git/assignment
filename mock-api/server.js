@@ -31,7 +31,7 @@ app.use(
 // Token generator
 const generateTokens = (user) => {
   const accessToken = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
-    expiresIn: "1m",
+    expiresIn: "15m",
   });
   const refreshToken = jwt.sign({ id: user.id }, JWT_REFRESH_SECRET, {
     expiresIn: "7d",
@@ -60,7 +60,7 @@ const sendAuthCookies = (res, accessToken, refreshToken) => {
     httpOnly: true,
     secure: false, // Set to true in production
     sameSite: "lax",
-    maxAge: 1 * 60 * 1000, // 15 min
+    maxAge: 15 * 60 * 1000, // 15 min
   });
 
   res.cookie("refresh", refreshToken, {
@@ -126,7 +126,7 @@ app.post("/account/refresh", (req, res) => {
     const newAccessToken = jwt.sign(
       { id: user.id, email: user.email },
       JWT_SECRET,
-      { expiresIn: "1m" }
+      { expiresIn: "15m" }
     );
     const newRefreshToken = jwt.sign({ id: user.id }, JWT_REFRESH_SECRET, {
       expiresIn: "7d",

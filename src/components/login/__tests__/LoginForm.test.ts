@@ -1,7 +1,7 @@
 // @vitest-environment nuxt
 import { mountSuspended } from "@nuxt/test-utils/runtime";
 import { it, expect, describe, vi } from "vitest";
-import LoginForm from "./LoginForm.vue";
+import LoginForm from "../LoginForm.vue";
 
 const mockLogin = vi.fn(() => ({ success: true }));
 vi.mock("@/stores/user", () => {

@@ -14,7 +14,9 @@ export const useUserStore = defineStore("user", () => {
   }
   const api = useApi();
 
-  const isAuthenticated = computed(() => user.value && user.value.id > 0);
+  const isAuthenticated = computed(
+    () => (user.value && user.value.id > 0) || false
+  );
   const signup = async (userForm: UserData) => {
     const { success, data, error } = await api.auth.signup(userForm);
     user.value = data;
@@ -36,6 +38,7 @@ export const useUserStore = defineStore("user", () => {
   const get = async () => {
     const { success, data } = await api.auth.getCurrentUser();
     user.value = data;
+    console.log(data);
     if (success) {
       navigateTo("/");
       localStorage.setItem("user", JSON.stringify(data));

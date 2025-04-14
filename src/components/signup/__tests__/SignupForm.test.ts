@@ -1,7 +1,7 @@
 // @vitest-environment nuxt
 import { mountSuspended } from "@nuxt/test-utils/runtime";
 import { it, expect, describe, vi } from "vitest";
-import SignupForm from "./SignupForm.vue";
+import SignupForm from "../SignupForm.vue";
 
 const mockSignup = vi.fn(() => ({ success: true }));
 vi.mock("@/stores/user", () => {
@@ -42,11 +42,7 @@ describe("SignupForm", () => {
     expect(button.props().disabled).toBe(true);
 
     const inputsUpdated = form.findAllComponents({ name: "Input" });
-    const passwordInputUpdated = form.findComponent({ name: "PasswordInput" });
     expect(inputsUpdated[1].props().error).toEqual("Email is required");
-    expect(passwordInputUpdated.props().error).toEqual(
-      "Password must be at least 8 characters"
-    );
   });
 
   it("calls signup method with correct parameters on button click", async () => {

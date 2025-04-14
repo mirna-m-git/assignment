@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import "@provetcloud/web-components/lib/Input";
 type InputType =
   | "text"
   | "email"

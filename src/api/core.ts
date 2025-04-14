@@ -106,7 +106,7 @@ class CoreAPI {
     return {
       status: response.status,
       ok: response.ok,
-      data,
+      data: mapKeysToCamelCase(data),
       rawData: data,
     };
   }

@@ -1,0 +1,24 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SignupForm > can mount signup form component 1`] = `
+"<form data-v-402e5ed9="">
+  <provet-stack data-v-402e5ed9="">
+    <provet-input data-v-402e5ed9="" data-testid="username"></provet-input>
+    <provet-input data-v-402e5ed9="" data-testid="email"></provet-input>
+    <provet-input>
+      <provet-button slot="end">
+        <provet-icon></provet-icon>
+      </provet-button>
+    </provet-input>
+    <ul data-v-402e5ed9="" class="n-padding-i-s n-padding-be-s list">
+      <li data-v-402e5ed9="" class="n-typescale-xs list-item">Password is required</li>
+      <li data-v-402e5ed9="" class="n-typescale-xs list-item">Password must be at least 8 characters</li>
+      <li data-v-402e5ed9="" class="n-typescale-xs list-item">Must contain a lowercase letter</li>
+      <li data-v-402e5ed9="" class="n-typescale-xs list-item">Must contain an uppercase letter</li>
+      <li data-v-402e5ed9="" class="n-typescale-xs list-item">Must contain a special character</li>
+    </ul>
+    <provet-checkbox data-v-402e5ed9="" type="checkbox" data-testid="subscribe" expand=""></provet-checkbox>
+    <provet-button data-v-402e5ed9="" class="n-margin-bs-m" data-testid="button">Sign Up</provet-button>
+  </provet-stack>
+</form>"
+`;
