@@ -67,8 +67,8 @@ class CoreAPI {
 
   async _tryRefreshToken() {
     try {
-      const response = await fetch(`${ApiConfig.baseUrl}/auth/refresh/`, {
-        method: "GET",
+      const response = await fetch(`${ApiConfig.baseUrl}/account/refresh/`, {
+        method: "POST",
         credentials: "include",
       });
       return { success: response.status === 200 };

@@ -21,6 +21,7 @@ const { errors, isValid } = useFormValidation(userForm, {
 });
 
 const submitting = ref(false);
+const passwordHints = computed(() => getPasswordHints(userForm.value.password));
 
 const onSignup = async () => {
   toast.remove();
@@ -36,52 +37,92 @@ const onSignup = async () => {
   <form @submit.prevent>
     <provet-stack gap="m">
       <Input
+        data-testid="username"
         label="Username"
+        name="username"
         v-model="userForm.username"
         expand
         :error="errors.username || undefined"
       />
       <Input
+        data-testid="email"
         label="Email"
+        name="email"
         v-model="userForm.email"
         expand
+        type="email"
         :error="errors.email || undefined"
       />
       <PasswordInput
+        data-testid="password"
         label="Password"
+        name="password"
         v-model="userForm.password"
-        :error="errors.password || undefined"
       />
+      <ul class="n-padding-i-s list">
+        <li
+          v-for="message in Object.values(PasswordValidationMessages)"
+          class="n-typescale-xs list-item"
+          :class="{
+            'n-color-text-success list-item-success':
+              !passwordHints.includes(message),
+          }"
+        >
+          {{ message }}
+        </li>
+      </ul>
       <Checkbox
+        data-testid="subscribe"
         label="I want to receive updates and announcements"
+        name="subscribe"
         :checked="userForm.subscribeToUpdates"
         expand
         @change="userForm.subscribeToUpdates = !userForm.subscribeToUpdates"
       />
       <Button
         v-if="submitting"
-        class="n-margin-bs-m n-width-100"
+        data-testid="button"
+        class="n-margin-bs-m"
+        name="signup-button"
         variant="primary"
         disabled
         expand
         ><provet-spinner size="xs"></provet-spinner>Sign Up</Button
       >
       <Button
-        class="n-margin-bs-m n-width-100"
         v-else-if="isValid"
+        class="n-margin-bs-m"
+        data-testid="button"
+        name="signup-button"
         variant="primary"
         @click="onSignup"
         expand
         >Sign Up</Button
       >
       <Button
-        class="n-margin-bs-m n-width-100"
+        v-else
+        class="n-margin-bs-m"
+        data-testid="button"
+        name="signup-button"
         variant="primary"
         disabled
         expand
-        v-else
         >Sign Up</Button
       >
     </provet-stack>
   </form>
 </template>
+<style scoped>
+.list {
+  list-style-type: none;
+}
+.list-item:before {
+  content: "•";
+  margin-right: 4px;
+  width: 10px;
+  display: inline-block;
+}
+.list-item-success:before {
+  content: "✓";
+}
+</style>

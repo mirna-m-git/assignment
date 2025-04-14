@@ -16,7 +16,6 @@ const { errors, isValid } = useFormValidation(loginForm, {
   password: [(password) => (!password ? "Password is required" : null)],
 });
 
-const passwordVisible = ref(false);
 const submitting = ref(false);
 
 const onLogin = async () => {
@@ -36,6 +35,7 @@ const onLogin = async () => {
         label="Email"
         v-model="loginForm.email"
         :error="errors.email || undefined"
+        type="email"
         expand
         data-testid="email"
       />
@@ -44,6 +44,7 @@ const onLogin = async () => {
         v-model="loginForm.password"
         :error="errors.password || undefined"
       />
+      <NuxtLink to="/" class="n-typescale-xs n-align-end">Forgot password?</NuxtLink>
       <Button
         v-if="submitting"
         expand

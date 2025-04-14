@@ -5,7 +5,7 @@ definePageMeta({ middleware: ["user-authenticated-redirect"] });
 </script>
 <template>
   <h1 slot="header">Create Provet Cloud Account</h1>
-  <SignupForm />
+  <SignupForm data-testid="signup-form"/>
   <div slot="footer">
     Already have an account?
     <NuxtLink to="/login">Click here to log in.</NuxtLink>

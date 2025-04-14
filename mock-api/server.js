@@ -9,7 +9,14 @@ const PORT = 4100;
 app.use(express.json());
 app.use(cookieParser());
 
-const users = [{ id: 1, email: "test@example.com", password: "StrongPassword.", username: "testuser" }];
+const users = [
+  {
+    id: 1,
+    email: "test@example.com",
+    password: "StrongPassword.",
+    username: "testuser",
+  },
+];
 const JWT_SECRET = "secret123";
 const JWT_REFRESH_SECRET = "refresh456";
 
@@ -24,7 +31,7 @@ app.use(
 // Token generator
 const generateTokens = (user) => {
   const accessToken = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
-    expiresIn: "15m",
+    expiresIn: "1m",
   });
   const refreshToken = jwt.sign({ id: user.id }, JWT_REFRESH_SECRET, {
     expiresIn: "7d",
@@ -53,7 +60,7 @@ const sendAuthCookies = (res, accessToken, refreshToken) => {
     httpOnly: true,
     secure: false, // Set to true in production
     sameSite: "lax",
-    maxAge: 15 * 60 * 1000, // 15 min
+    maxAge: 1 * 60 * 1000, // 15 min
   });
 
   res.cookie("refresh", refreshToken, {
@@ -74,7 +81,13 @@ app.post("/account/signup", (req, res) => {
     return res.status(409).json({ message: "Email already exists" });
   }
 
-  const newUser = { id: users.length + 1, email, password, username, subscribe_to_updates };
+  const newUser = {
+    id: users.length + 1,
+    email,
+    password,
+    username,
+    subscribe_to_updates,
+  };
   users.push(newUser);
 
   const { accessToken, refreshToken } = generateTokens(newUser);
@@ -97,7 +110,7 @@ app.post("/account/login", (req, res) => {
 
 // Refresh
 app.post("/account/refresh", (req, res) => {
-  const refreshToken = req.cookies.refreshToken;
+  const refreshToken = req.cookies.refresh;
 
   if (!refreshToken) {
     return res.status(400).json({ message: "No refresh token" });
@@ -113,7 +126,7 @@ app.post("/account/refresh", (req, res) => {
     const newAccessToken = jwt.sign(
       { id: user.id, email: user.email },
       JWT_SECRET,
-      { expiresIn: "15m" }
+      { expiresIn: "1m" }
     );
     const newRefreshToken = jwt.sign({ id: user.id }, JWT_REFRESH_SECRET, {
       expiresIn: "7d",

@@ -3,15 +3,15 @@
 exports[`SignupForm > can mount signup form component 1`] = `
 "<form>
   <provet-stack>
-    <provet-input></provet-input>
-    <provet-input></provet-input>
-    <provet-input>
+    <provet-input data-testid="username"></provet-input>
+    <provet-input data-testid="email"></provet-input>
+    <provet-input data-testid="password">
       <provet-button slot="end">
         <provet-icon></provet-icon>
       </provet-button>
     </provet-input>
-    <provet-checkbox type="checkbox" expand=""></provet-checkbox>
-    <provet-button class="n-margin-bs-m n-width-100">Sign Up</provet-button>
+    <provet-checkbox type="checkbox" data-testid="subscribe" expand=""></provet-checkbox>
+    <provet-button class="n-margin-bs-m" data-testid="button">Sign Up</provet-button>
   </provet-stack>
 </form>"
 `;

@@ -5,18 +5,34 @@ export function validateEmail(email: string): string | null {
   return null;
 }
 
-export function validatePassword(password: string): string | null {
-  if (!password) return "Password is required";
-  if (password.length < 8) return "Password must be at least 8 characters";
-  if (!/[a-z]/.test(password)) return "Must contain a lowercase letter";
-  if (!/[A-Z]/.test(password)) return "Must contain an uppercase letter";
-  if (!/[!@#$%^&*(),.?":{}|<>]/.test(password))
-    return "Must contain a special character";
-  return null;
+export enum PasswordValidationMessages {
+  REQUIRED = "Password is required",
+  MIN_LENGTH = "Password must be at least 8 characters",
+  LOWERCASE = "Must contain a lowercase letter",
+  UPPERCASE = "Must contain an uppercase letter",
+  SPECIAL_CHAR = "Must contain a special character",
 }
 
-export function  validateUsername(username: string): string | null {
+export function getPasswordHints(password: string): string[] {
+  const hints: string[] = [];
+
+  if (!password) hints.push(PasswordValidationMessages.REQUIRED);
+  if (password.length < 8) hints.push(PasswordValidationMessages.MIN_LENGTH);
+  if (!/[a-z]/.test(password)) hints.push(PasswordValidationMessages.LOWERCASE);
+  if (!/[A-Z]/.test(password)) hints.push(PasswordValidationMessages.UPPERCASE);
+  if (!/[!@#$%^&*(),.?":{}|<>]/.test(password))
+    hints.push(PasswordValidationMessages.SPECIAL_CHAR);
+
+  return hints;
+}
+
+export function validatePassword(password: string) {
+  return getPasswordHints(password)[0] || null;
+}
+
+export function validateUsername(username: string): string | null {
   if (!username) return "Username is required";
-  if (username.length < 6 || !/^[0-9A-Za-z]{6,16}$/.test(username)) return "Must be at least 6 characters, and can contain only letters and numbers";
+  if (username.length < 6 || !/^[0-9A-Za-z]{6,16}$/.test(username))
+    return "Must be at least 6 characters, and can contain only letters and numbers";
   return null;
 }
