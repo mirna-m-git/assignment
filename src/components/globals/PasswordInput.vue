@@ -1,22 +1,15 @@
 <script lang="ts" setup>
-import "@provetcloud/web-components/lib/Input";
-type InputType =
-  | "text"
-  | "email"
-  | "password"
-  | "tel"
-  | "url"
-  | "search"
-  | "number"
-  | "unit"
-  | "button";
+
 interface Props {
-  type?: InputType;
   label?: string;
   modelValue: any;
   error?: string;
 }
+
 defineProps<Props>();
+
+const passwordVisible = ref(false);
+
 const emit = defineEmits(["update:modelValue"]);
 const onInput = (event: Event) => {
   const target = event.currentTarget as HTMLInputElement;
@@ -26,10 +19,22 @@ const onInput = (event: Event) => {
 <template>
   <provet-input
     :label="label"
-    :type="type"
+    :type="passwordVisible ? 'text' : 'password'"
     :value="modelValue"
     :error="error"
+    expand
     @input="onInput"
   >
+    <provet-button
+      slot="end"
+      square
+      @click="passwordVisible = !passwordVisible"
+    >
+      <provet-icon
+        name="interface-edit-off"
+        v-if="passwordVisible"
+      ></provet-icon>
+      <provet-icon name="interface-edit-on" v-else></provet-icon>
+    </provet-button>
   </provet-input>
 </template>

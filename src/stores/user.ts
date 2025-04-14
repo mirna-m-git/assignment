@@ -20,6 +20,7 @@ export const useUserStore = defineStore("user", () => {
     user.value = data;
     if (success) {
       localStorage.setItem("user", JSON.stringify(data));
+      navigateTo("/");
     }
     return { success, error };
   };
@@ -28,6 +29,7 @@ export const useUserStore = defineStore("user", () => {
     user.value = data;
     if (success) {
       localStorage.setItem("user", JSON.stringify(data));
+      navigateTo("/");
     }
     return { success, error };
   };
@@ -42,8 +44,10 @@ export const useUserStore = defineStore("user", () => {
   const logout = async () => {
     const { success } = await api.auth.logout();
     if (success) {
+      user.value = null;
       localStorage.removeItem("user");
+      navigateTo("/login");
     }
   };
-  return { user, isAuthenticated, signup, login, get };
+  return { user, isAuthenticated, signup, login, logout, get };
 });

@@ -3,8 +3,7 @@ import CoreAPI from "../core";
 
 interface UserData {
   email: string;
-  firstName?: string;
-  lastName?: string;
+  username: string;
   password: string;
   subscribeToUpdates: boolean;
 }
@@ -19,8 +18,7 @@ class AuthAPI extends CoreAPI {
   async signup(userData: UserData) {
     const payload = {
       email: userData.email,
-      first_name: userData.firstName,
-      last_name: userData.lastName,
+      username: userData.username,
       password: userData.password,
       subscribe_to_updates: userData.subscribeToUpdates,
     };

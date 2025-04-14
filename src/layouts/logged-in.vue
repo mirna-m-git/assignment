@@ -1,8 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Header from '~/components/header/Header.vue';
+</script>
 
 <template>
   <provet-layout id="logged-in">
-    <provet-top-bar></provet-top-bar>
+    <Header />
     <slot></slot>
   </provet-layout>
 </template>

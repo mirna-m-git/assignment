@@ -9,7 +9,7 @@ const PORT = 4100;
 app.use(express.json());
 app.use(cookieParser());
 
-const users = [{ id: 1, email: "test@example.com", password: "password123" }];
+const users = [{ id: 1, email: "test@example.com", password: "StrongPassword.", username: "testuser" }];
 const JWT_SECRET = "secret123";
 const JWT_REFRESH_SECRET = "refresh456";
 
@@ -66,12 +66,15 @@ const sendAuthCookies = (res, accessToken, refreshToken) => {
 
 // Signup
 app.post("/account/signup", (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, username, subscribe_to_updates } = req.body;
+  if (users.find((u) => u.username === username)) {
+    return res.status(409).json({ message: "Username already taken" });
+  }
   if (users.find((u) => u.email === email)) {
-    return res.status(409).json({ message: "User already exists" });
+    return res.status(409).json({ message: "Email already exists" });
   }
 
-  const newUser = { id: users.length + 1, email, password };
+  const newUser = { id: users.length + 1, email, password, username, subscribe_to_updates };
   users.push(newUser);
 
   const { accessToken, refreshToken } = generateTokens(newUser);
@@ -135,7 +138,6 @@ app.get("/me", authenticateToken, (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
-
   // Exclude password from the response
   const { password, ...userWithoutPassword } = user;
   res.json(userWithoutPassword);

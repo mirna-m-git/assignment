@@ -1,10 +1,13 @@
 <script lang="ts" setup>
 import "@provetcloud/css";
 import SignupForm from "~/components/signup/SignupForm.vue";
+definePageMeta({ middleware: ["user-authenticated-redirect"] });
 </script>
 <template>
-  <h1 class="n-typescale-l">
-    Welcome! Sign up to start your Provet experience
-  </h1>
+  <h1 slot="header">Create Provet Cloud Account</h1>
   <SignupForm />
+  <div slot="footer">
+    Already have an account?
+    <NuxtLink to="/login">Click here to log in.</NuxtLink>
+  </div>
 </template>

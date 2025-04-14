@@ -47,6 +47,7 @@ export function useFormValidation<T extends Record<string, any>>(
 
   return {
     errors,
+    silentErrors,
     isValid,
   };
 }

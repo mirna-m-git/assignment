@@ -15,11 +15,8 @@ export function validatePassword(password: string): string | null {
   return null;
 }
 
-export function validateConfirmPassword(
-  confirm: string,
-  password: string
-): string | null {
-  if (!confirm) return "Confirm your password";
-  if (password !== confirm) return "Passwords do not match";
+export function  validateUsername(username: string): string | null {
+  if (!username) return "Username is required";
+  if (username.length < 6 || !/^[0-9A-Za-z]{6,16}$/.test(username)) return "Must be at least 6 characters, and can contain only letters and numbers";
   return null;
 }
