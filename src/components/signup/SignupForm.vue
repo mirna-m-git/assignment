@@ -58,19 +58,22 @@ const onSignup = async () => {
         label="Password"
         name="password"
         v-model="userForm.password"
-      />
-      <ul class="n-padding-i-s list">
-        <li
-          v-for="message in Object.values(PasswordValidationMessages)"
-          class="n-typescale-xs list-item"
-          :class="{
-            'n-color-text-success list-item-success':
-              !passwordHints.includes(message),
-          }"
-        >
-          {{ message }}
-        </li>
-      </ul>
+      >
+        <template #hint>
+          <ul class="n-padding-i-s n-padding-be-s list">
+            <li
+              v-for="message in Object.values(PasswordValidationMessages)"
+              class="n-typescale-xs list-item"
+              :class="{
+                'n-color-text-success list-item-success':
+                  !passwordHints.includes(message),
+              }"
+            >
+              {{ message }}
+            </li>
+          </ul>
+        </template>
+      </PasswordInput>
       <Checkbox
         data-testid="subscribe"
         label="I want to receive updates and announcements"

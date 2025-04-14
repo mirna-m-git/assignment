@@ -37,4 +37,5 @@ const onInput = (event: Event) => {
       <provet-icon name="interface-edit-on" v-else></provet-icon>
     </provet-button>
   </provet-input>
+  <slot name="hint"></slot>
 </template>
