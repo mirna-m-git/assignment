@@ -30,6 +30,7 @@ Start the mock api on `http://localhost:4100`:
 ```bash
 # yarn
 cd mock-api
+yarn install
 yarn start
 ```
 
